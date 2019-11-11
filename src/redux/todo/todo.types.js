@@ -1,0 +1,7 @@
+const TodoActionTypes = {
+  FETCH_TODO_START: 'FETCH_TODO_START',
+  FETCH_TODO_SUCCESS: 'FETCH_TODO_SUCCESS',
+  FETCH_TODO_FAILURE: 'FETCH_TODO_FAILURE'
+};
+
+export default TodoActionTypes;
