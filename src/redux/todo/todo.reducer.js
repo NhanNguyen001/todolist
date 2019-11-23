@@ -12,13 +12,25 @@ const todoReducer = (state = INITIAL_STATE, action) => {
         ...state,
         loading: true
       };
+    case TodoActionTypes.ADD_TODO_START:
+      return {
+        ...state,
+        loading: true
+      };
     case TodoActionTypes.FETCH_TODO_SUCCESS:
       return {
         ...state,
         loading: false,
         todos: action.payload
       };
+    case TodoActionTypes.ADD_TODO_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        todos: [...state.todos, action.payload]
+      };
     case TodoActionTypes.FETCH_TODO_FAILURE:
+    case TodoActionTypes.ADD_TODO_FAILURE:
       return {
         ...state,
         loading: false,

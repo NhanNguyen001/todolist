@@ -8,7 +8,7 @@ import { fetchTodosStartAsync } from '../../redux/todo/todo.actions';
 const Todos = ({ fetchTodos, todos: { todos } }) => {
   useEffect(() => {
     fetchTodos();
-  }, []);
+  }, [fetchTodos]);
 
   return todos.map(todo => (
     <TodoItem
@@ -28,7 +28,4 @@ const mapDispatchToProps = dispatch => ({
   fetchTodos: () => dispatch(fetchTodosStartAsync())
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Todos);
+export default connect(mapStateToProps, mapDispatchToProps)(Todos);
