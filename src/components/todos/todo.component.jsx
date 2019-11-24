@@ -2,22 +2,28 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import TodoItem from '../todo-item/todo-item.component';
+import WithSpinner from '../with-spinner/with-spinner.component';
 
 import { fetchTodosStartAsync } from '../../redux/todo/todo.actions';
 
-const Todos = ({ fetchTodos, todos: { todos } }) => {
+const Todos = ({ fetchTodos, todos: { todos, loading } }) => {
   useEffect(() => {
     fetchTodos();
   }, [fetchTodos]);
 
-  return todos.map(todo => (
-    <TodoItem
-      key={todo.id}
-      todo={todo}
-      // markComplete={this.props.markComplete}
-      // delTodo={this.props.delTodo}
-    />
-  ));
+  let todoItem = !loading ? (
+    todos.map(todo => (
+      <TodoItem
+        key={todo.id}
+        todo={todo}
+        // delTodo={this.props.delTodo}
+      />
+    ))
+  ) : (
+    <WithSpinner />
+  );
+
+  return todoItem;
 };
 
 const mapStateToProps = state => ({
