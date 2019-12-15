@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import TodoItem from '../todo-item/todo-item.component';
 import WithSpinner from '../with-spinner/with-spinner.component';
 
-import { fetchTodosStartAsync } from '../../redux/todo/todo.actions';
+// import { fetchTodosStartAsync } from '../../redux/todo/todo.actions';
+import { fetchTodosStart } from '../../redux/todo/todo.actions';
 
 const Todos = ({ fetchTodos, todos: { todos, loading } }) => {
   useEffect(() => {
@@ -31,7 +32,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchTodos: () => dispatch(fetchTodosStartAsync())
+  // fetchTodos: () => dispatch(fetchTodosStartAsync())
+  fetchTodos: () => dispatch(fetchTodosStart())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Todos);
