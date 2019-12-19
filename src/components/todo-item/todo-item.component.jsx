@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import { TodoItemContainer, CustomButton, CustomDiv } from './todo-item.styles';
-import { removeTodoStartAsync } from '../../redux/todo/todo.actions';
+import { removeTodosStart } from '../../redux/todo/todo.actions';
 
-const TodoItem = ({ todo: { id, title, completed }, removeTodoStartAsync }) => {
+const TodoItem = ({ todo: { id, title, completed }, removeTodosStart }) => {
   const [markComplete, setMarkcomple] = useState(completed);
 
   const handleChange = () => {
@@ -12,7 +12,7 @@ const TodoItem = ({ todo: { id, title, completed }, removeTodoStartAsync }) => {
   };
 
   const handleClick = id => {
-    removeTodoStartAsync(id);
+    removeTodosStart(id);
   };
 
   return (
@@ -31,7 +31,7 @@ const TodoItem = ({ todo: { id, title, completed }, removeTodoStartAsync }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  removeTodoStartAsync: id => dispatch(removeTodoStartAsync(id))
+  removeTodosStart: id => dispatch(removeTodosStart({ id }))
 });
 
 export default connect(null, mapDispatchToProps)(TodoItem);
