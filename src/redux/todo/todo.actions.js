@@ -1,13 +1,12 @@
 import TodoActionTypes from './todo.types';
-import axios from 'axios';
-import uuid from 'uuid';
 
 export const fetchTodosStart = () => ({
   type: TodoActionTypes.FETCH_TODO_START
 });
 
-export const addTodoItemStart = () => ({
-  type: TodoActionTypes.ADD_TODO_START
+export const addTodoStart = title => ({
+  type: TodoActionTypes.ADD_TODO_START,
+  payload: title
 });
 
 export const removeTodosStart = id => ({
@@ -20,7 +19,7 @@ export const fetchTodosSuccess = todos => ({
   payload: todos
 });
 
-export const addTodoItemSuccess = todos => ({
+export const addTodoSuccess = todos => ({
   type: TodoActionTypes.ADD_TODO_SUCCESS,
   payload: todos
 });
@@ -35,7 +34,7 @@ export const fetchTodosFailure = errorMessage => ({
   payload: errorMessage
 });
 
-export const addTodoItemFailure = errorMessage => ({
+export const addTodoFailure = errorMessage => ({
   type: TodoActionTypes.ADD_TODO_FAILURE,
   payload: errorMessage
 });
@@ -57,20 +56,20 @@ export const removeTodosFailure = errorMessage => ({
 //   }
 // };
 
-export const addTodoStartAsync = title => async dispatch => {
-  try {
-    dispatch(addTodoItemStart());
-    const res = await axios.post('https://jsonplaceholder.typicode.com/todos', {
-      title,
-      userId: 1,
-      completed: false
-    });
-    res.data.id = uuid.v4();
-    dispatch(addTodoItemSuccess(res.data));
-  } catch (error) {
-    dispatch(addTodoItemFailure(error));
-  }
-};
+// export const addTodoStartAsync = title => async dispatch => {
+//   try {
+//     dispatch(addTodoItemStart());
+//     const res = await axios.post('https://jsonplaceholder.typicode.com/todos', {
+//       title,
+//       userId: 1,
+//       completed: false
+//     });
+//     res.data.id = uuid.v4();
+//     dispatch(addTodoItemSuccess(res.data));
+//   } catch (error) {
+//     dispatch(addTodoItemFailure(error));
+//   }
+// };
 
 // export const removeTodoStartAsync = id => async dispatch => {
 //   try {

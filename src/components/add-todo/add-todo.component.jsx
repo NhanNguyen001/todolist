@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 
 import { FormContainer, CustomInput, CustomButton } from './add-todo.styles';
 
-import { addTodoStartAsync } from '../../redux/todo/todo.actions';
+import { addTodoStart } from '../../redux/todo/todo.actions';
 
-const AddTodo = ({ addTodoStartAsync }) => {
+const AddTodo = ({ addTodoStart }) => {
   const [values, setValues] = useState({ title: '' });
 
   const { title } = values;
@@ -17,7 +17,7 @@ const AddTodo = ({ addTodoStartAsync }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    addTodoStartAsync(title);
+    addTodoStart(title);
     setValues({ title: '' });
   };
 
@@ -36,7 +36,7 @@ const AddTodo = ({ addTodoStartAsync }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  addTodoStartAsync: todos => dispatch(addTodoStartAsync(todos))
+  addTodoStart: title => dispatch(addTodoStart({ title }))
 });
 
 export default connect(null, mapDispatchToProps)(AddTodo);

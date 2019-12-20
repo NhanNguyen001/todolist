@@ -28,7 +28,7 @@ const todoReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         loading: false,
-        todos: [...state.todos, action.payload]
+        todos: [action.payload, ...state.todos]
       };
     case TodoActionTypes.REMOVE_TODO_SUCCESS:
       return {

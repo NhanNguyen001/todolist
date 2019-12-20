@@ -1,12 +1,15 @@
 import { takeLatest, all, call, put } from 'redux-saga/effects';
 import axios from 'axios';
+import uuid from 'uuid';
 
 import TodoActionTypes from './todo.types';
 
 import {
   fetchTodosSuccess,
-  fetchTodosFailure,
+  addTodoSuccess,
   removeTodosSuccess,
+  fetchTodosFailure,
+  addTodoFailure,
   removeTodosFailure
 } from './todo.actions';
 
@@ -30,8 +33,26 @@ export function* removeTodoStart({ payload: { id } }) {
   }
 }
 
+export function* addTodoStart({ payload: { title } }) {
+  try {
+    const res = yield axios.post('https://jsonplaceholder.typicode.com/todos', {
+      title,
+      userId: 1,
+      completed: false
+    });
+    res.data.id = uuid.v4();
+    yield put(addTodoSuccess(res.data));
+  } catch (error) {
+    yield put(addTodoFailure(error));
+  }
+}
+
 export function* onFetchTodosStart() {
   yield takeLatest(TodoActionTypes.FETCH_TODO_START, fetchTodosStart);
+}
+
+export function* onAddTodoStart() {
+  yield takeLatest(TodoActionTypes.ADD_TODO_START, addTodoStart);
 }
 
 export function* onRemoveTodoStart() {
@@ -39,5 +60,9 @@ export function* onRemoveTodoStart() {
 }
 
 export function* todoSagas() {
-  yield all([call(onRemoveTodoStart), call(onFetchTodosStart)]);
+  yield all([
+    call(onFetchTodosStart),
+    call(onAddTodoStart),
+    call(onRemoveTodoStart)
+  ]);
 }

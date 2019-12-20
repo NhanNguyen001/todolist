@@ -12,6 +12,7 @@ const sagaMiddleware = createSagaMiddleware();
 // const middlewares = [logger, thunk];
 const middlewares = [logger, sagaMiddleware];
 
+// Specify the reducer that tell how state is updated actions
 const store = createStore(rootReducer, applyMiddleware(...middlewares));
 
 sagaMiddleware.run(rootSaga);
