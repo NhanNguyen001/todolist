@@ -1,12 +1,18 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import TodoItem from '../todo-item/todo-item.component';
 import WithSpinner from '../with-spinner/with-spinner.component';
 
 import { fetchTodosStart } from '../../redux/todo/todo.actions';
+import {
+  todoItemsSelector,
+  isLoadingTodoItemsSelector
+} from '../../redux/todo/todo.selectors';
 
-const Todos = ({ fetchTodosStart, todos: { todos, loading } }) => {
+const Todos = ({ fetchTodosStart, todos, loading }) => {
+  // const Todos = props => {
   useEffect(() => {
     fetchTodosStart();
   }, [fetchTodosStart]);
@@ -18,10 +24,13 @@ const Todos = ({ fetchTodosStart, todos: { todos, loading } }) => {
   );
 
   return todoItem;
+
+  // return <h1>Hello</h1>;
 };
 
-const mapStateToProps = state => ({
-  todos: state.todos
+const mapStateToProps = createStructuredSelector({
+  todos: todoItemsSelector,
+  isLoading: isLoadingTodoItemsSelector
 });
 
 const mapDispatchToProps = dispatch => ({
